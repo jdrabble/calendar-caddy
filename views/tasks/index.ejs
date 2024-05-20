@@ -1,0 +1,84 @@
+<%- include('../partials/header') %>
+<main>
+  <div class="dashboard">
+    <h2>All Tasks</h2>
+
+    <h3>Number of tasks shown: <%= task.length %></h3>
+
+    <form action="/tasks/search" method="GET">
+      <label for="month">Month:
+      <input type="month" name="month" /></label>
+
+      <label for="category">Type:
+      <select name="category">
+        <option value=""></option>
+        <option value="Work">Work</option>
+        <option value="Study">Study</option>
+        <option value="Sport">Sport</option>
+        <option value="House">House</option>
+        <option value="Car">Car</option>
+        <option value="BMC">BMC</option>
+        <option value="Financial">Financial</option>
+        <option value="Health">Health</option>
+        <option value="Family">Family</option>
+        <option value="Friends">Friends</option>
+        <option value="Fun">Fun</option>
+        <option value="Occasion">Occasion</option>
+        <option value="Other">Other</option>
+      </select></label>
+      
+      <button type="submit">
+        &nbsp;Filter Tasks&nbsp;<i class="fa fa-filter"></i>&nbsp;
+      </button>
+    </form>
+    <a href="/tasks">
+      <button >
+        &nbsp;Refresh&nbsp;<i class="fa fa-refresh"></i>&nbsp;
+      </button>
+    </a>
+  </div>
+
+    <p class="error"><%= message %></p>
+    
+  </div>
+  <% if (!message) { %>
+  <div class="results">
+    <table>
+      <thead>
+        <tr>
+          <th>&nbsp;&nbsp;</th>
+          <th>&nbsp;&nbsp;</th>
+          <th>&nbsp;Date&nbsp;</th>
+          <th>&nbsp;Type&nbsp;</th>
+          <th>&nbsp;Task&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% task.forEach(function(t) { %>
+        <tr>
+          <% if (user?._id.equals(t.user)) { %>
+          <td>
+            <a href="/tasks/show/<%= t.id %>"
+              ><i id="search" class="fa fa-search"></i
+            ></a>
+          </td>
+          <% } else { %>
+          <td></td>
+          <% } %>
+          <td class="avatar">&nbsp;
+            <img
+              src="<%= t.userAvatar %>"
+              referrerpolicy="no-referrer"
+            />&nbsp;
+          </td>
+          <td>&nbsp;<%= dayjs(t.date).format('DD/MM/YY'); %>&nbsp;</td>
+          <td>&nbsp;<%= t.category %>&nbsp;</td>
+          <td>&nbsp;<%= t.task %>&nbsp;</td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+  <% } %>
+</main>
+<%- include('../partials/footer') %>

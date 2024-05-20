@@ -1,0 +1,50 @@
+<%- include('../partials/header') %>
+<main>
+  <div class="dashboard">
+  <h2>Task Details</h2>
+  <ul>
+    <li>Date: <%= dayjs(task.date).format('DD/MM/YY');%></li>
+    <li>Type: <%= task.category %></li>
+    <li>Task: <%= task.task %></li>
+  </ul>
+  <h3>Edit Task</h3>
+  <form action="/tasks/update/<%= task.id %>?_method=PUT" method="POST">
+    <label for="date">Date:
+    <input type="date" name="date" value="<%= dayjs(task.date).format('YYYY-MM-DD') %>" /></label>
+    <label for="task">Task:</label>
+    <textarea name="task" rows="10" cols="40"><%= task.task%></textarea>
+      
+    <label for="category">Type:
+      <select name="category">
+        <option value="Work" <% if (task.category === "Work")  { %> selected <% } %>>Work</option>
+        <option value="Study" <% if (task.category === "Study")  { %> selected <% } %>>Study</option>
+        <option value="Sport" <% if (task.category === "Sport")  { %> selected <% } %>>Sport</option>
+        <option value="House" <% if (task.category === "House")  { %> selected <% } %>>House</option>
+        <option value="Car" <% if (task.category === "Car")  { %> selected <% } %>>Car</option>
+        <option value="BMC" <% if (task.category === "BMC")  { %> selected <% } %>>BMC</option>
+        <option value="Financial" <% if (task.category === "Financial")  { %> selected <% } %>>Financial</option>
+        <option value="Health" <% if (task.category === "Health")  { %> selected <% } %>>Health</option>
+        <option value="Family" <% if (task.category === "Family")  { %> selected <% } %>>Family</option>
+        <option value="Friends" <% if (task.category === "Friends")  { %> selected <% } %>>Friends</option>
+        <option value="Fun" <% if (task.category === "Fun")  { %> selected <% } %>>Fun</option>
+        <option value="Occasion" <% if (task.category === "Occasion")  { %> selected <% } %>>Occasion</option>
+        <option value="Other" <% if (task.category === "Other")  { %> selected <% } %>>Other</option>
+      </select></label>
+
+    <button type="submit">
+      &nbsp;Edit This Task&nbsp;<i class="fa fa-edit"></i>&nbsp;
+    </button>
+  </form>
+  <p class="error"><%= message %></p>
+  <form
+            action="/tasks/<%= task.id %>?_method=DELETE"
+            class="delete-form"
+            method="POST"
+          >
+            <button class="delete-button" type="submit">
+              &nbsp;Delete Task&nbsp;<i class="fa fa-trash-o"></i>&nbsp;
+            </button>
+          </form>
+        </div>
+</main>
+<%- include('../partials/footer') %>
