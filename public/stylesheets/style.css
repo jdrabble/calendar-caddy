@@ -82,7 +82,7 @@ form {
 }
 
 input, select {
-  width: 100px;
+  width: 150px;
   height: 25px;
   margin: 5px;
   font-size: 14px;
@@ -121,7 +121,7 @@ button {
   color: white;
   border-radius: 5px;
   border: none;
-  margin: 3px;
+  margin: 7.5px;
   padding: 3px;
   cursor: pointer;
 }

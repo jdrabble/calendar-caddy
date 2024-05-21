@@ -12,8 +12,11 @@ module.exports = {
 };
 
 async function index(req, res) {
-  const task = await Task.find({}).sort({ date: 1 });
-
+  const task = await Task.find({ user: req.user._id })
+    .populate({
+      path: "user",
+    })
+    .sort({ date: 1 });
   res.render("tasks/index", {
     task,
     dayjs: dayjs,
@@ -33,8 +36,7 @@ async function create(req, res) {
     }
 
     req.body.user = req.user._id;
-    req.body.userName = req.user.name;
-    req.body.userAvatar = req.user.avatar;
+
     const task = await Task.create(req.body);
     await task.save();
     res.redirect("/tasks");
@@ -72,11 +74,11 @@ async function update(req, res) {
     await taskUpdate.save();
 
     res.redirect("/tasks");
-  } catch (err) {
+  } catch (error) {
     res.render("tasks/show", {
       task,
       dayjs: dayjs,
-      message: err.message,
+      message: error.message,
     });
   }
 }
@@ -87,14 +89,59 @@ async function deleteTask(req, res) {
 }
 
 async function search(req, res) {
-  for (let key in req.query) {
-    if (req.query[key] === "") delete req.query[key];
+  // for (let key in req.query) {
+  //   if (req.query[key] === "") delete req.query[key];
+  // }
+
+  if (req.query.category === "All") {
+    req.query.category = [
+      "Work",
+      "Study",
+      "Sport",
+      "House",
+      "BMC",
+      "Car",
+      "Financial",
+      "Health",
+      "Family",
+      "Friends",
+      "Fun",
+      "Occasion",
+      "Other",
+    ];
   }
-  console.log(req.query);
+
   try {
-    const task = await Task.find(req.query).sort({
-      date: 1,
-    });
+    const task = await Task.find({
+      category: req.query.category,
+
+      $or: [
+        { date: { $gte: req.query.start, $lte: req.query.end } },
+        { month: req.query.month },
+      ],
+      // $or: [
+      //   {
+      //     $and: [
+      //       { date: { $gte: req.query.start, $lte: req.query.end } },
+      //       { category: req.query.category },
+      //     ],
+      //   },
+      //   {
+      //     $and: [{ month: req.query.month }, { category: req.query.category }],
+      //   },
+      // ],
+      // $or: [
+      //   { date: { $gte: req.query.start, $lte: req.query.end } },
+      //   { category: req.query.category },
+      //   { month: req.query.month },
+      // ],
+    })
+      .populate({
+        path: "user",
+      })
+      .sort({
+        date: 1,
+      });
     if (task.length < 1) {
       res.render("tasks/index", {
         task,
@@ -107,7 +154,7 @@ async function search(req, res) {
       dayjs: dayjs,
       message: "",
     });
-  } catch (err) {
+  } catch (error) {
     res.redirect("back");
   }
 }

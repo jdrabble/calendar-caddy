@@ -1,20 +1,15 @@
 <%- include('../partials/header') %>
 <main>
   <div class="dashboard">
-  <h2>Task Details</h2>
-  <ul>
-    <li>Date: <%= dayjs(task.date).format('DD/MM/YY');%></li>
-    <li>Type: <%= task.category %></li>
-    <li>Task: <%= task.task %></li>
-  </ul>
-  <h3>Edit Task</h3>
+  <h2>Edit Task</h2>
+ 
   <form action="/tasks/update/<%= task.id %>?_method=PUT" method="POST">
-    <label for="date">Date:
-    <input type="date" name="date" value="<%= dayjs(task.date).format('YYYY-MM-DD') %>" /></label>
+    <label for="date">Date:</label>
+    <input type="date" name="date" value="<%= dayjs(task.date).format('YYYY-MM-DD') %>" />
     <label for="task">Task:</label>
     <textarea name="task" rows="10" cols="40"><%= task.task%></textarea>
       
-    <label for="category">Type:
+    <label for="category">Type:</label>
       <select name="category">
         <option value="Work" <% if (task.category === "Work")  { %> selected <% } %>>Work</option>
         <option value="Study" <% if (task.category === "Study")  { %> selected <% } %>>Study</option>
@@ -29,13 +24,12 @@
         <option value="Fun" <% if (task.category === "Fun")  { %> selected <% } %>>Fun</option>
         <option value="Occasion" <% if (task.category === "Occasion")  { %> selected <% } %>>Occasion</option>
         <option value="Other" <% if (task.category === "Other")  { %> selected <% } %>>Other</option>
-      </select></label>
+      </select>
 
     <button type="submit">
-      &nbsp;Edit This Task&nbsp;<i class="fa fa-edit"></i>&nbsp;
+      &nbsp;Edit Task&nbsp;<i class="fa fa-edit"></i>&nbsp;
     </button>
   </form>
-  <p class="error"><%= message %></p>
   <form
             action="/tasks/<%= task.id %>?_method=DELETE"
             class="delete-form"
@@ -45,6 +39,7 @@
               &nbsp;Delete Task&nbsp;<i class="fa fa-trash-o"></i>&nbsp;
             </button>
           </form>
+          <p class="error"><%= message %></p>
         </div>
 </main>
 <%- include('../partials/footer') %>
