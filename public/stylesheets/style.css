@@ -105,6 +105,10 @@ th, td {
   font-size: calc(0.8vw + 0.8vh);
 }
 
+td {
+  padding: 1px;
+}
+
 th {
   font-weight: 500;
   background-color: lightgray;
@@ -117,11 +121,11 @@ th {
 button {
   display: flex;
   background-color:  rgb(40,107,250);
-  font-size: calc(0.8vw + 0.8vh);
+  font-size: calc(1vw + 1vh);
   color: white;
   border-radius: 5px;
   border: none;
-  margin: 7.5px;
+  margin: 7px;
   padding: 3px;
   cursor: pointer;
 }
@@ -138,29 +142,27 @@ td button {
   font-size: calc(0.8vw + 0.8vh);
 }
 
-.avatar img {
+.avatar {
   border-radius: 50%;
-  height: 27px;
-  margin-top: 3px;
+  height: 40px;
 }
 
 @media screen and (max-width: 400px) {
 
-  nav {
+  nav, button {
     font-size: calc(1vw + 1vh);
   }
 
   input, select {
-    width: 90px;
+    width: 100px;
     height: 18px;
     margin: 4px;
-    font-size: 12px;
+    font-size: 11px;
   }
 
-  .avatar img {
+  .avatar {
     border-radius: 50%;
-    height: 18px;
-    margin-top: 2px;
+    height: 25px;
   }
 }
 

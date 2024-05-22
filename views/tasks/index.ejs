@@ -2,12 +2,13 @@
 <main>
   <div class="dashboard">
     <h2>All Tasks</h2>
+    <img src="<%= user.avatar %>" referrerpolicy="no-referrer" class="avatar" />
 
     <a href="/tasks/new">
       <button>&nbsp;Add Task&nbsp;<i class="fa fa-plus">&nbsp;</i></button>
     </a>
 
-    <h3>Number of tasks shown: <%= task.length %></h3>
+    <h3>Number of records shown: <%= task.length %></h3>
 
     <form action="/tasks/search" method="GET">
       <label for="month">Month: <input type="month" name="month" /></label>
@@ -51,11 +52,10 @@
       <thead>
         <tr>
           <th>&nbsp;&nbsp;</th>
-          <th>&nbsp;&nbsp;</th>
           <th>&nbsp;Date&nbsp;</th>
           <th>&nbsp;Month&nbsp;</th>
           <th>&nbsp;Type&nbsp;</th>
-          <th>&nbsp;Task&nbsp;</th>
+          <th>&nbsp;Task/Occasion&nbsp;</th>
         </tr>
       </thead>
       <tbody>
@@ -70,13 +70,6 @@
           <% } else { %>
           <td></td>
           <% } %>
-          <td class="avatar">
-            &nbsp;
-            <img
-              src="<%= t.user.avatar %>"
-              referrerpolicy="no-referrer"
-            />&nbsp;
-          </td>
           <td>&nbsp;<%= dayjs(t.date).format('DD/MM/YY'); %>&nbsp;</td>
           <td>&nbsp;<%= dayjs(t.month).format('MMM YY'); %>&nbsp;</td>
           <td>&nbsp;<%= t.category %>&nbsp;</td>
