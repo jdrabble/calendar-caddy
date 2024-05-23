@@ -9,6 +9,7 @@ module.exports = {
   update,
   delete: deleteTask,
   search,
+  searchText,
 };
 
 async function index(req, res) {
@@ -157,4 +158,24 @@ async function search(req, res) {
   } catch (error) {
     res.redirect("back");
   }
+}
+
+async function searchText(req, res) {
+  const task = await Task.find({
+    task: { $regex: req.query.task, $options: "i" },
+  }).sort({
+    date: 1,
+  });
+  if (task.length < 1) {
+    res.render("tasks/index", {
+      task,
+      dayjs,
+      message: "No tasks found",
+    });
+  }
+  res.render("tasks/index", {
+    task,
+    dayjs: dayjs,
+    message: "",
+  });
 }

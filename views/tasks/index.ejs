@@ -10,6 +10,13 @@
 
     <h3>Number of records shown: <%= task.length %></h3>
 
+    <form action="/tasks/searchtext" method="GET">
+      <label for="task">Search tasks: <input type="text" name="task" /></label>
+      <button type="submit">
+        &nbsp;Search&nbsp;<i class="fa fa-search"></i>&nbsp;
+      </button>
+    </form>
+
     <form action="/tasks/search" method="GET">
       <label for="month">Month: <input type="month" name="month" /></label>
       <label for="start">Start Date: <input type="date" name="start" /></label>

@@ -11,5 +11,6 @@ router.get("/show/:id", ensureLoggedIn, tasksCtrl.show);
 router.put("/update/:id", ensureLoggedIn, tasksCtrl.update);
 router.delete("/:id", ensureLoggedIn, tasksCtrl.delete);
 router.get("/search", ensureLoggedIn, tasksCtrl.search);
+router.get("/searchtext", ensureLoggedIn, tasksCtrl.searchText);
 
 module.exports = router;
