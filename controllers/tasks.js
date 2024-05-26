@@ -114,6 +114,7 @@ async function search(req, res) {
 
   try {
     const task = await Task.find({
+      user: req.user._id,
       category: req.query.category,
 
       $or: [
@@ -162,6 +163,7 @@ async function search(req, res) {
 
 async function searchText(req, res) {
   const task = await Task.find({
+    user: req.user._id,
     task: { $regex: req.query.task, $options: "i" },
   }).sort({
     date: 1,
